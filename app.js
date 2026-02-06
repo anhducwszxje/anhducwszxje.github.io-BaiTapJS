@@ -124,19 +124,8 @@ class StudentManager {
             const parsed = JSON.parse(data);
             this.students = parsed.map(s => Student.fromJSON(s));
         } else {
-            // Dữ liệu mẫu ban đầu
-            this.students = [
-                new Student('2023045', 'Nguyễn Văn A', '2006-04-12', 'CT02', 3.5),
-                new Student('2023012', 'Trần Thị B', '2006-09-05', 'CT03', 3.9),
-                new Student('2023089', 'Lê Văn C', '2007-01-22', 'CT01', 3.2),
-                new Student('2023092', 'Phạm Thị D', '2007-03-15', 'CT01', 3.7),
-                new Student('2023101', 'Đặng Văn E', '2005-11-30', 'CT05', 2.8),
-                new Student('2024001', 'Hoàng Văn F', '2008-05-20', 'CT01', 3.8),
-                new Student('2024002', 'Vũ Thị G', '2007-08-15', 'CT02', 4.0),
-                new Student('2024003', 'Bùi Văn H', '2008-02-10', 'CT01', 3.2),
-                new Student('2024004', 'Dương Thị I', '2006-12-25', 'CT07', 3.9),
-                new Student('2024005', 'Cao Văn K', '2007-07-08', 'CT03', 2.9)
-            ];
+            // Danh sách rỗng ban đầu
+            this.students = [];
             this.saveToStorage();
         }
     }
