@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Sinh Viên</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="#3B82F6"/>
+                    <path d="M8 16L14 22L24 10" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="header-title">Hệ Thống Quản Lý Sinh Viên</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Left Panel - Add Student Form -->
+        <aside class="add-student-panel">
+            <h2 class="panel-title">Thêm sinh viên</h2>
+            
+            <form id="studentForm" class="student-form">
+                <div class="form-group">
+                    <label for="studentId">Mã Sinh Viên</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                        <input type="text" id="studentId" placeholder="VD: B23DCCN001" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Họ và Tên</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <input type="text" id="fullName" placeholder="VD: Nguyễn Văn A" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">Ngày Sinh</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <input type="date" id="dateOfBirth" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentClass">Lớp Học</label>
+                    <div class="input-wrapper select-wrapper">
+                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <select id="studentClass" required>
+                            <option value="">Chọn Lớp</option>
+                            <option value="CT01">CT01</option>
+                            <option value="CT02">CT02</option>
+                            <option value="CT03">CT03</option>
+                            <option value="CT04">CT04</option>
+                            <option value="CT05">CT05</option>
+                            <option value="CT06">CT06</option>
+                            <option value="CT07">CT07</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="gpa">Điểm GPA (0.0 - 4.0)</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                        <input type="number" id="gpa" placeholder="VD: 3.8" step="0.1" min="0" max="4" required>
+                    </div>
+                    <span class="helper-text">Nhập giá trị từ 0.0 đến 4.0</span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        Lưu
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="clearBtn">Xóa</button>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Right Panel - Student List -->
+        <section class="student-list-panel">
+            <div class="panel-header">
+                <div class="panel-header-left">
+                    <h2 class="panel-title">Danh Sách Sinh Viên</h2>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <span id="totalStudents">0</span> Sinh Viên
+                        </span>
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                <polyline points="17 6 23 6 23 12"/>
+                            </svg>
+                            Điểm TB: <span id="avgGpa">0.0</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-header-right">
+                    <div class="search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm sinh viên...">
+                    </div>
+                    <button class="btn btn-icon" id="exportBtn" title="Export">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="id">
+                                MÃ SV
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5"/>
+                                    <path d="M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="name">
+                                HỌ VÀ TÊN
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5"/>
+                                    <path d="M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th>NGÀY SINH</th>
+                            <th class="sortable" data-sort="class">
+                                LỚP
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5"/>
+                                    <path d="M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="gpa">
+                                ĐIỂM
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5"/>
+                                    <path d="M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th>HÀNH ĐỘNG</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- Student rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-container">
+                <span class="pagination-info">Hiển thị <span id="showingStart">0</span> đến <span id="showingEnd">0</span> trên <span id="showingTotal">0</span> mục</span>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination buttons will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chỉnh Sửa Sinh Viên</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="editForm" class="student-form">
+                <input type="hidden" id="editIndex">
+                
+                <div class="form-group">
+                    <label for="editStudentId">Mã Sinh Viên</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="editStudentId" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editFullName">Họ và Tên</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="editFullName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDateOfBirth">Ngày Sinh</label>
+                    <div class="input-wrapper">
+                        <input type="date" id="editDateOfBirth" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editStudentClass">Lớp Học</label>
+                    <div class="input-wrapper">
+                        <select id="editStudentClass" required>
+                            <option value="">Chọn Lớp</option>
+                            <option value="CT01">CT01</option>
+                            <option value="CT02">CT02</option>
+                            <option value="CT03">CT03</option>
+                            <option value="CT04">CT04</option>
+                            <option value="CT05">CT05</option>
+                            <option value="CT06">CT06</option>
+                            <option value="CT07">CT07</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editGpa">Điểm GPA (0.0 - 4.0)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="editGpa" step="0.1" min="0" max="4" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    <button type="button" class="btn btn-secondary" id="cancelEdit">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
